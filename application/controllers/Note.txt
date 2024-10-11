@@ -1,0 +1,2 @@
+replace file ini di folder
+application/controller/ajax,php ganti sama ini
