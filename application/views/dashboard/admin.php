@@ -29,7 +29,9 @@
 						</div>
 						<div class="card-footer d-flex align-items-center justify-content-between">
 
-							<div class="small text-primary"><i class="fas fa-angle-right"></i></div>
+							<div class="small text-primary">
+							<button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera', '_blank')"> Scan Absen</button>
+							</div>
 						</div>
 					</div>
 				</div>

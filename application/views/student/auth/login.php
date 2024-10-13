@@ -61,7 +61,7 @@
                                     <small class="text-danger">*Klik <a href="<?= base_url('student/auth/linked_account') ?>">Disini</a> untuk membuat password siswa</small>
                                     <div class="mt-3">
                                         <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
-                                        <button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera', '_blank')">ABSEN</button>
+                                        
                                     </div>
                                 </div>
                             </form>
