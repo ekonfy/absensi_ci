@@ -198,7 +198,7 @@
                     <p class="	font-w500 mb-0">Create Workout Plan Now</p>
                 </div> -->
                 <div class="copyright">
-                    <p><strong><?= $webname; ?></strong> DC © <?= DATE('Y'); ?> All Rights Reserved</p>
+                    <p><strong><?= $webname; ?></strong> SchoolApp © <?= DATE('Y'); ?> All Rights Reserved</p>
                 </div>
             </div>
         </div>

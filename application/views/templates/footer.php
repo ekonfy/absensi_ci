@@ -11,7 +11,7 @@
         ***********************************-->
 <div class="footer">
     <div class="copyright">
-        <p>Copyright © Designed &amp; Developed by <a href="http://webdigitalcenter.my.id/" target="_blank">DC</a> 2023</p>
+        <p>Copyright © Designed &amp; Developed by <a href="http://schoolapp.id/" target="_blank">SchoolApp</a> 2024</p>
     </div>
 </div>
 <!--**********************************

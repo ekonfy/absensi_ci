@@ -22,7 +22,7 @@ class Dashboard extends CI_Controller
         //     exit;
         // }
         $data = [
-            'title' => WEBNAME . 'User Dashboard',
+            'title' => WEBNAME . '',
             'user' => $datauser,
             'webname' => WEBNAME,
 

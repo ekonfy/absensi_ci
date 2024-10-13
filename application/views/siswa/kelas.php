@@ -13,7 +13,7 @@
     <div class="col-xl-12 mt-5">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Vertical Nav Pill</h4>
+                <h4 class="card-title">Data Kelas</h4>
             </div>
 
 
