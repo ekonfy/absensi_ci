@@ -26,7 +26,7 @@
             <div class="img-holder">
                 <div class="bg"></div>
                 <div class="info-holder">
-                    <img src="<?= base_url() ?>assets/images/graphic1.svg" alt="">
+                    <img src="<?= base_url() ?>assets/images/graphic1.png" alt="">
                 </div>
             </div>
             <div class="form-holder">
@@ -34,8 +34,6 @@
                     <div class="form-items">
                         <h3 class="tulisanlogin">Hallo, Silahkan login</h3>
                         <p class="tulisankecil">Silahkan login sebagai siswa</p>
-                        <p>Login admin = <a href="<?= base_url(); ?>Auth">Login Admin</a><br>
-                            Link Absen = <a href="<?= base_url(); ?>camera" target="_blank">ABSEN</a></p>
                         <div class="kotakalert">
                             <?php if ($this->session->flashdata('flash')) : ?>
                                 <div class="alert alert-<?= $this->session->flashdata('flash')['alert'] ?> alert-dismissible fade show" role="alert">
@@ -48,7 +46,6 @@
                         </div>
                         <div class="gifloading"></div>
                         <div class="kotaklogin">
-
                             <div class="page-links">
                                 <a href="<?= base_url(); ?>" class="active">Login</a>
                             </div>
@@ -59,14 +56,16 @@
                                 <span class="infopassword"></span>
                                 <div class="form-button">
                                     <button id="submit" type="submit" class="ibtn buttonlogin">Login</button>
-                                    <!-- <a href="forget4.html">Lupa password?</a> -->
                                     <a href="<?= base_url('student/auth/linked_account') ?>">NIS belum terkait akun?</a>
                                     <br>
-                                    <font color="red"><small>*Klik <a href="<?= base_url('student/auth/linked_account') ?>">Disini</a> untuk membuat password siswa</small></font>
+                                    <small class="text-danger">*Klik <a href="<?= base_url('student/auth/linked_account') ?>">Disini</a> untuk membuat password siswa</small>
+                                    <div class="mt-3">
+                                        <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
+                                        <button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera', '_blank')">ABSEN</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -79,6 +78,7 @@
 </body>
 
 </html>
+
 <script>
     $('.buttonlogin').click(function(e) {
         e.preventDefault();
@@ -107,11 +107,11 @@
                         $('.tulisanlogin').html('Silahkan Login')
                         $('.gifloading').html('');
                         $('.kotakalert').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Gagal!</strong>${data.data}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>`);
+                            <strong>Gagal!</strong>${data.data}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>`);
                     } else if (data.status == true) {
                         window.location.href = data.data;
                     }
@@ -122,11 +122,11 @@
                     $('.tulisanlogin').html('Silahkan Login')
                     $('.gifloading').html('');
                     $('.kotakalert').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Gagal!</strong> Kesalahan system!
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>`);
+                        <strong>Gagal!</strong> Kesalahan system!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>`);
                 }
             });
         }
