@@ -32,8 +32,8 @@
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h3 class="tulisanlogin">Hallo, Silahkan login</h3>
-                        <p class="tulisankecil">Silahkan login sebagai siswa</p>
+                        <h3 class="tulisanlogin">Assalamu 'alaykum</h3>
+                        <p class="tulisankecil">Silakan lakukan Login untuk Absen Kehadiran</p>
                         <div class="kotakalert">
                             <?php if ($this->session->flashdata('flash')) : ?>
                                 <div class="alert alert-<?= $this->session->flashdata('flash')['alert'] ?> alert-dismissible fade show" role="alert">
@@ -55,12 +55,14 @@
                                 <input class="form-control password" type="password" name="password" placeholder="Password" required>
                                 <span class="infopassword"></span>
                                 <div class="form-button">
-                                    <button id="submit" type="submit" class="ibtn buttonlogin">Login</button>
+                                    <button id="submit" type="submit" class="ibtn buttonlogin">Login Siswa</button>
+									<button type="button" class="btn btn-primary mr-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
+									<br></br>
                                     <a href="<?= base_url('student/auth/linked_account') ?>">NIS belum terkait akun?</a>
                                     <br>
                                     <small class="text-danger">*Klik <a href="<?= base_url('student/auth/linked_account') ?>">Disini</a> untuk membuat password siswa</small>
                                     <div class="mt-3">
-                                        <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
+                                       
                                         
                                     </div>
                                 </div>
