@@ -70,6 +70,7 @@ class Siswa extends CI_Controller
             'title' => WEBNAME . 'Menu access',
             'webname' => WEBNAME,
             'kelas' => $this->M_kelas->tampilkelas(),
+			'jurusan' => $this->M_jurusan->tampiljurusan(),
             'user' =>  $this->M_user->getUserById($this->session->userdata('id'))[0]
         ];
         $this->load->view('templates/header', $data);
@@ -136,26 +137,43 @@ class Siswa extends CI_Controller
     }
     // proses input tambah siswa
     public function tambahsiswa()
-    {
-        $this->form_validation->set_rules('nama', 'nama', 'required|min_length[5]|trim');
-        $this->form_validation->set_rules('nis', 'nis', 'required|min_length[10]|max_length[10]|is_unique[tabel_siswa.nis]', [
-            'is_unique' => 'Nomor induk siswa ' . $this->input->post('nis') . ' sudah ada di database'
-        ]);
-        if ($this->form_validation->run() != FALSE) {
-            if ($this->input->post('jeniskelamin')) {
-                $nomorhp = $this->M_bantuan->formatnomor($this->input->post('nomor_hp'));
-                $this->M_siswa->inputsiswa($nomorhp);
-                $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil di tambah']);
-            } else {
-                $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => 'Jenis kelamin wajib diisi']);
-            }
+{
+    // Validasi form
+    $this->form_validation->set_rules('nama', 'nama', 'required|min_length[5]|trim');
+    $this->form_validation->set_rules('nis', 'nis', 'required|min_length[10]|max_length[10]|is_unique[tabel_siswa.nis]', [
+        'is_unique' => 'Nomor induk siswa ' . $this->input->post('nis') . ' sudah ada di database'
+    ]);
+    $this->form_validation->set_rules('jurusan', 'jurusan', 'required', [
+        'required' => 'Jurusan wajib dipilih'
+    ]);
+
+    if ($this->form_validation->run() != FALSE) {
+        if ($this->input->post('jeniskelamin')) {
+            $nomorhp = $this->M_bantuan->formatnomor($this->input->post('nomor_hp'));
+            $data = [
+                'nama_siswa' => $this->input->post('nama'),
+                'nis' => $this->input->post('nis'),
+                'tgl_lahir' => $this->input->post('tgl_lahir'),
+                'jenis_kelamin' => $this->input->post('jeniskelamin'),
+                'alamat' => $this->input->post('alamat'),
+                'no_telepon' => $nomorhp,
+                'kode_kelas' => $this->input->post('kelas'),
+                'kode_jurusan' => $this->input->post('jurusan'), // Jurusan yang baru ditambahkan
+                'gambar' => 'default.jpg'
+            ];
+            $this->M_siswa->inputsiswa($data);
+            $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil di tambah']);
         } else {
-            $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => validation_errors()]);
+            $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => 'Jenis kelamin wajib diisi']);
         }
-        $kelas = $this->input->get('kelas');
-        $jurusan = $this->input->get('jurusan');
-        redirect(base_url() . 'siswa/?kelas=' . $kelas . '&jurusan=' . $jurusan);
+    } else {
+        $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => validation_errors()]);
     }
+    $kelas = $this->input->get('kelas');
+    $jurusan = $this->input->get('jurusan');
+    redirect(base_url() . 'siswa/?kelas=' . $kelas . '&jurusan=' . $jurusan);
+}
+
 
     // form edit siswa
     public function edit()
