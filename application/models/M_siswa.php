@@ -31,22 +31,30 @@ class M_siswa extends CI_Model
             ->join('tabel_kelas', 'tabel_kelas.id_kelas = tabel_siswa.kode_kelas')
             ->where('nis', $nis)->get()->result_array();
     }
-    public function inputsiswa($nohp)
-    {
-        $datasiswa = [
-            'id_siswa' => 'SISWA' . random_int(100, 999),
-            'nama_siswa' => $this->input->post('nama', true),
-            'nis' => $this->input->post('nis', true),
-            'tgl_lahir' => $this->input->post('tgl_lahir'),
-            'jenis_kelamin' => $this->input->post('jeniskelamin', true),
-            'alamat' => $this->input->post('alamat', true),
-            'no_telepon' => $nohp,
-            'kode_jurusan' => 'default',
-            'kode_kelas' => $this->input->post('kelas', true),
-            'gambar' => 'default'
-        ];
-        $this->db->insert('tabel_siswa', $datasiswa);
-    }
+	
+	public function inputsiswa()
+{
+    // Ambil data nomor telepon dari form
+    $nohp = $this->input->post('nomor_hp', true); 
+
+    // Siapkan data siswa untuk disimpan
+    $datasiswa = [
+        'id_siswa' => 'SISWA' . random_int(100, 999),
+        'nama_siswa' => $this->input->post('nama', true),
+        'nis' => $this->input->post('nis', true),
+        'tgl_lahir' => $this->input->post('tgl_lahir'),
+        'jenis_kelamin' => $this->input->post('jeniskelamin', true),
+        'alamat' => $this->input->post('alamat', true),
+        'no_telepon' => $nohp, // Gunakan nomor telepon dari input form
+        'kode_jurusan' => $this->input->post('jurusan', true),
+        'kode_kelas' => $this->input->post('kelas', true),
+        'gambar' => 'default'
+    ];
+
+    // Masukkan data siswa ke database
+    $this->db->insert('tabel_siswa', $datasiswa);
+}
+
 
     public function selectnohp($nomor, $nis)
     {
