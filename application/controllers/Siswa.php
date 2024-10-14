@@ -140,7 +140,7 @@ class Siswa extends CI_Controller
 {
     // Validasi form
     $this->form_validation->set_rules('nama', 'nama', 'required|min_length[5]|trim');
-    $this->form_validation->set_rules('nis', 'nis', 'required|min_length[10]|max_length[10]|is_unique[tabel_siswa.nis]', [
+    $this->form_validation->set_rules('nis', 'nis', 'required|min_length[3]|max_length[10]|is_unique[tabel_siswa.nis]', [
         'is_unique' => 'Nomor induk siswa ' . $this->input->post('nis') . ' sudah ada di database'
     ]);
     $this->form_validation->set_rules('jurusan', 'jurusan', 'required', [

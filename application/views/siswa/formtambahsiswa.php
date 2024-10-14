@@ -19,7 +19,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label">Nomor Induk Siswa</label>
                                 <div class="controls">
-                                    <input type="text" class="form-control" minlength="10" maxlength="10" placeholder="NIS" name="nis" required />
+                                    <input type="text" class="form-control" minlength="3" maxlength="10" placeholder="NIS" name="nis" required />
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
