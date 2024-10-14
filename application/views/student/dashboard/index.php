@@ -112,11 +112,22 @@
 												<i class="la la-edit"></i>
 											</span>
 											<div class="media-body text-white">
-												<h5 class="text-white">Jumlah Absen ( Bulan ini )</h5>
-												<p>Izin : <?= $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND keterangan = 'i' ")->num_rows()  ?> Sakit : <?= $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND keterangan = 's' ")->num_rows()  ?> Alpha : <?= $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND keterangan = 'a' ")->num_rows()  ?></p>
+   												 <h5 class="text-white">Jumlah Absen (Bulan ini)</h5>
+													<p>
+														<?php
+															$bulan_ini = date('Y-m'); // Format YYYY-MM untuk bulan ini
 
+															// Menghitung jumlah absen berdasarkan bulan ini
+															$izin_count = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen LIKE '$bulan_ini%' AND keterangan = 'i'")->num_rows();
+															$sakit_count = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen LIKE '$bulan_ini%' AND keterangan = 's'")->num_rows();
+															$alpha_count = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen LIKE '$bulan_ini%' AND keterangan = 'a'")->num_rows();
+														?>
+														Izin: <?= $izin_count ?> 
+														Sakit: <?= $sakit_count ?> 
+														Alpha: <?= $alpha_count ?>
+													</p>
+												</div>
 
-											</div>
 										</div>
 									</div>
 								</div>
