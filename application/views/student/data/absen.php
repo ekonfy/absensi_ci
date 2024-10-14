@@ -126,9 +126,9 @@
                                                                 // cek libur
 
 
-                                                                if (count($datalibur) > 0) {
-                                                                    echo '<td class="bg-danger">' . $datalibur[0]['keterangan'] . '</td>';
-                                                                } else if ($hari == 'Sun' && $minggu == 'Aktif' || $hari == 'Sat' && $sabtu == 'Aktif') {
+																if (!empty($datalibur) && is_array($datalibur) && count($datalibur) > 0) {
+																	echo '<td class="bg-danger">' . $datalibur[0]['keterangan'] . '</td>';
+																} else if ($hari == 'Sun' && $minggu == 'Aktif' || $hari == 'Sat' && $sabtu == 'Aktif') {
                                                                     echo '<td class="bg-danger"></td>';
                                                                 } else {
                                                                     if ($absen['keterangan'] == 'h') {
