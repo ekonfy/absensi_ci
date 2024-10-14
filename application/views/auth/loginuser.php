@@ -12,6 +12,21 @@
     <link rel="icon" type="<?= base_url('assets/'); ?>image/png" sizes="16x16" href="<?= base_url('assets/'); ?>./images/favicon.png">
     <link href="<?= base_url('assets/'); ?>./css/style.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Menambahkan gaya background pada body */
+        body {
+            background-image: url('<?= base_url('assets/images/bgadmin.png'); ?>');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        /* Opsional: Menambahkan overlay gelap pada background */
+        .authincation {
+            background-color: rgba(0, 0, 0, 0.7); /* overlay hitam dengan opacity */
+        }
+    </style>
 </head>
 
 <body class="h-100">
