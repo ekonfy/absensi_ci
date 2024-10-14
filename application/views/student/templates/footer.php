@@ -11,7 +11,7 @@
         ***********************************-->
 <div class="footer">
     <div class="copyright">
-        <p>Copyright © Designed &amp; Developed by <a href="http://webdigitalcenter.my.id/" target="_blank">Digital Center</a> <?= DATE('Y'); ?></p>
+        <p>Copyright © Designed &amp; Developed by <a href="https://schoolapp.id/" target="_blank">Schoolapp</a> <?= DATE('Y'); ?></p>
     </div>
 </div>
 <!--**********************************
