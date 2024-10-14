@@ -93,7 +93,7 @@
 
 
                         ?>
-                        <div id="info" class="text-center mt-2"></div>
+                       <!-- <div id="info" class="text-center mt-2"></div> -->
                         <div class="informasi text-center mt-2"></div>
                         <div class="infoHP text-center mt-2 mb-2"></div>
                     </div>
