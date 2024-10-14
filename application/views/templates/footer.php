@@ -46,6 +46,7 @@
 
 <!-- Chart piety plugin files -->
 <script src="<?= base_url(); ?>assets/vendor/peity/jquery.peity.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
 <!-- Apex Chart -->
 <script src="<?= base_url(); ?>assets/vendor/apexchart/apexchart.js"></script>
@@ -67,7 +68,7 @@
             bookSST: true,
             type: 'base64'
         });
-        XLSX.writeFile(excelFile, 'ExportedFile:HTMLTableToExcel.' + type);
+        XLSX.writeFile(excelFile, 'ExportedFile:Rekap_Absensi.' + type);
     }
 
     function carouselReview() {
