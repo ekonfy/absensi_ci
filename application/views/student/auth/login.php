@@ -26,7 +26,7 @@
             <div class="img-holder">
                 <div class="bg"></div>
                 <div class="info-holder">
-                    <img src="<?= base_url() ?>assets/images/graphic1.png" alt="">
+                    <img src="<?= base_url() ?>assets/images/almuhajirin.png" alt="">
                 </div>
             </div>
             <div class="form-holder">
@@ -55,8 +55,8 @@
                                 <input class="form-control password" type="password" name="password" placeholder="Password" required>
                                 <span class="infopassword"></span>
                                 <div class="form-button">
-                                    <button id="submit" type="submit" class="ibtn buttonlogin">Login Siswa</button>
-									<button type="button" class="btn btn-primary mr-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
+									<button id="submit" type="submit" class="btn btn-primary w-100 buttonlogin">Login Siswa</button>
+									<button type="button" class="btn btn-success w-100 mt-2" onclick="window.location.href='<?= base_url(); ?>Auth'">Login Admin</button>
 									<br></br>
                                     <a href="<?= base_url('student/auth/linked_account') ?>">NIS belum terkait akun?</a>
                                     <br>
