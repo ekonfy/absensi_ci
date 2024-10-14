@@ -27,12 +27,12 @@
 							</div>
 							</h6>
 						</div>
-						<div class="card-footer d-flex align-items-center justify-content-between">
+					<!--	<div class="card-footer d-flex align-items-center justify-content-between"> -->
 
-							<div class="small text-primary">
-							<button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera', '_blank')"> Scan Absen</button>
-							</div>
+						<div class="small text-primary">
+   							 <button type="button" class="btn btn-success w-100" onclick="window.open('<?= base_url(); ?>camera', '_blank')"> Scan Absen</button>
 						</div>
+					<!--	</div> -->
 					</div>
 				</div>
 				<div class="col-xl-9 ">
