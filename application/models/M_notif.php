@@ -45,40 +45,53 @@ class M_notif extends CI_Model
     }
 
     public function send_whatsapp($nomor, $pesan)
-    {
-        $tab = $this->db->get('tabel_api')->result_array();
-        $count = $this->db->count_all_results('tabel_api');
-        if ($count == 1) {
-            foreach ($tab as $tabel_api) {
-                $curl = curl_init();
-                $target = $nomor;
-                $sender = $tabel_api['sender'];
-                $apikey = $tabel_api['api_key'];
-                $urls = $tabel_api['url'];
+{
+    $tab = $this->db->get('tabel_api')->result_array();
+    $count = count($tab); // Mendapatkan jumlah catatan langsung dari array
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => $urls,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => array(
-                        'api_key' => $apikey,
-                        'sender' => $sender,
-                        'number' => $target,
-                        'message' => $pesan,
-                    ),
-                ));
+    if ($count > 0) { // Memeriksa apakah ada catatan
+        $responses = []; // Array untuk menyimpan respons
+        foreach ($tab as $tabel_api) {
+            $curl = curl_init();
+            $target = $nomor;
+            $sender = $tabel_api['sender'];
+            $apikey = $tabel_api['api_key'];
+            $urls = $tabel_api['url'];
 
-                $response = curl_exec($curl);
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $urls,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => array(
+                    'api_key' => $apikey,
+                    'sender' => $sender,
+                    'number' => $target,
+                    'message' => $pesan,
+                ),
+            ));
 
-                curl_close($curl);
+            $response = curl_exec($curl);
 
-                return $response;
+            if (curl_errno($curl)) {
+                // Menangani kesalahan cURL
+                $error_msg = curl_error($curl);
+                $responses[] = ['error' => $error_msg]; // Menyimpan pesan kesalahan
+            } else {
+                $responses[] = json_decode($response, true); // Menyimpan respons API
             }
+
+            curl_close($curl);
         }
+        
+        return $responses; // Mengembalikan semua respons
+    } else {
+        return ['error' => 'Tidak ada konfigurasi API yang ditemukan.']; // Menangani jika tidak ada catatan
     }
+}
+
 }
