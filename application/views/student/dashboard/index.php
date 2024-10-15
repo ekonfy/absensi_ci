@@ -57,52 +57,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header">
-									<p class="card-title">Status Absen Hari ini <?= hari_ini() . ' ' . date('d') . ' ' . nama_bulan(date('m')) . ' ' . date('Y') ?> </p>
-								</div>
-								<div class="card-body">
-									<table class="table table-responsive-md">
-										<thead>
-											<tr>
-												<th class="width80">Masuk</th>
-												<th>Keluar</th>
-
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-											// cek absen hari ini
-											$tgl = date('Y-m-d');
-											$nis = $user['nis'];
-											$masuk = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND masuk = '1' ")->num_rows();
-											$keluar = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND keluar = '1' ")->num_rows();
-											?>
-
-											<tr>
-												<?php
-
-												if ($liburr == 'ada') : ?>
-													<td><span class="badge light badge-secondary text-small">Libur</span></td>
-													<td><span class="badge light badge-secondary">Libur</span></td>
-												<?php endif; ?>
-												<?php if ($liburr == 'tidak ada') : ?>
-													<td><span class="badge light badge-<?= $masuk > 0 ? 'success' : 'danger' ?>"><?= $masuk > 0 ? 'Sudah absen' : 'Belum absen' ?></span></td>
-
-													<td><span class="badge light badge-<?= $keluar > 0 ? 'success' : 'danger' ?>"><?= $keluar > 0 ? 'Sudah absen' : 'Belum absen' ?></span></td>
-												<?php endif; ?>
-
-
-											</tr>
-										</tbody>
-
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
 						<div class="col-xl-4 col-lg-6 col-sm-12">
 							<a href="<?= base_url('student/data/absen') ?>">
 								<div class="widget-stat card bg-secondary">
@@ -176,6 +130,53 @@
 								</div>
 							</a>
 						</div>
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<p class="card-title">Status Absen Hari ini <?= hari_ini() . ' ' . date('d') . ' ' . nama_bulan(date('m')) . ' ' . date('Y') ?> </p>
+								</div>
+								<div class="card-body">
+									<table class="table table-responsive-md">
+										<thead>
+											<tr>
+												<th class="width80">Masuk</th>
+												<th>Keluar</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											// cek absen hari ini
+											$tgl = date('Y-m-d');
+											$nis = $user['nis'];
+											$masuk = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND masuk = '1' ")->num_rows();
+											$keluar = $this->db->query("SELECT * FROM tabel_detail_absen WHERE nis = '$nis' AND tanggal_absen = '$tgl' AND keluar = '1' ")->num_rows();
+											?>
+
+											<tr>
+												<?php
+
+												if ($liburr == 'ada') : ?>
+													<td><span class="badge light badge-secondary text-small">Libur</span></td>
+													<td><span class="badge light badge-secondary">Libur</span></td>
+												<?php endif; ?>
+												<?php if ($liburr == 'tidak ada') : ?>
+													<td><span class="badge light badge-<?= $masuk > 0 ? 'success' : 'danger' ?>"><?= $masuk > 0 ? 'Sudah absen' : 'Belum absen' ?></span></td>
+
+													<td><span class="badge light badge-<?= $keluar > 0 ? 'success' : 'danger' ?>"><?= $keluar > 0 ? 'Sudah absen' : 'Belum absen' ?></span></td>
+												<?php endif; ?>
+
+
+											</tr>
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						
 					</div>
 				</div>
 
