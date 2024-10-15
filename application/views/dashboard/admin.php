@@ -17,63 +17,20 @@
 		<!-- row -->
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-white  mb-4">
-						<div class="card-body">
-							<h3><span class="flaticon-381-alarm-clock"></span> Hari Ini</h3>
-							<div id="date-and-clock mt-3">
-								<h4 id="clocknow"></h4>
-								<h4 id="datenow"></h4>
-							</div>
-							</h6>
-						</div>
-					<!--	<div class="card-footer d-flex align-items-center justify-content-between"> -->
+			<div class="col-xl-12 col-md-6">
+    <div class="card bg-transparent mb-4">
+        <div class="card-body d-flex flex-column">
+            <div id="date-and-clock" class="d-flex justify-content-end align-items-center">
+                <h4 class="flaticon-381-calendar mr-2 mb-0" id="datenow"></h4> 
+                <h4 class="flaticon-381-alarm-clock ml-2 mb-0" id="clocknow"></h4>
+                <!-- Tombol scan absen diubah menjadi merah dan diperkecil -->
+                <button type="button" class="btn btn-danger btn-sm ml-2" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Scan Absen</button>
+            </div>
+        </div>
+    </div>
+</div>
+		
 
-						<div class="small text-primary">
-   							 <button type="button" class="btn btn-success w-100" onclick="window.open('<?= base_url(); ?>camera', '_blank')"> Scan Absen</button>
-						</div>
-					<!--	</div> -->
-					</div>
-				</div>
-				<div class="col-xl-9 ">
-					<div class="card border-0 pb-0">
-						<div class="card-header border-0 pb-0">
-							<?php
-							$thbulan = date('Y') . '-' . date('m');
-							$querycekizin = "SELECT * FROM tabel_izin JOIN tabel_siswa on tabel_siswa.nis = tabel_izin.nis_siswa WHERE tanggal_izin LIKE '%$thbulan%' ORDER BY tanggal_izin DESC LIMIT 10";
-							$izin = $this->db->query($querycekizin)->result_array();
-
-							?>
-							<h4 class="card-title">Permintaan izin bulan ini</h4>
-							<a href="<?= base_url('izin') ?>" class="btn-sm btn btn-primary"> <span class="flaticon-381-view"></span> Lihat semua</a>
-						</div>
-						<div class="card-body">
-							<div id="DZ_W_Todo3" class="widget-media dz-scroll height200">
-								<?php if (count($izin) == 0) { ?>
-									<h3 class="text-center text-primary m-auto">Tidak ada izin bulan ini</h1>
-									<?php } else { ?>
-										<ul class="timeline">
-											<?php foreach ($izin as $i) : ?>
-												<li>
-													<div class="timeline-panel">
-														<div class="media mr-2">
-															<img alt="image" width="50" src="<?= base_url() ?>assets/images/user/<?= $i['gambar']; ?>?>">
-														</div>
-														<div class="media-body">
-															<h5 class="mb-1"><?= $i['nama_siswa'] ?> <small class="text-muted"><?= $i['tanggal_izin'] ?></small></h5>
-															<p class="mb-1"><?= substr($i['keterangan'], 1, 70) ?>....</p>
-															<!-- <a href="#" class="btn btn-primary btn-xxs shadow">Lihat</a> -->
-															<p class="badge badge-secondary"><?= $i['status'] ?></p>
-														</div>
-													</div>
-												</li>
-											<?php endforeach; ?>
-										</ul>
-									<?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="col-xl-12 col-xxl-12">
 					<div class="row">
 						<div class="col-xl-4 col-lg-6 col-sm-6">
@@ -137,6 +94,49 @@
 								</div>
 							</div>
 						</div>
+
+				<div class="col-xl-12 ">
+					<div class="card border-0 pb-0">
+						<div class="card-header border-0 pb-0">
+							<?php
+							$thbulan = date('Y') . '-' . date('m');
+							$querycekizin = "SELECT * FROM tabel_izin JOIN tabel_siswa on tabel_siswa.nis = tabel_izin.nis_siswa WHERE tanggal_izin LIKE '%$thbulan%' ORDER BY tanggal_izin DESC LIMIT 10";
+							$izin = $this->db->query($querycekizin)->result_array();
+
+							?>
+							<h4 class="card-title">Permintaan izin bulan ini</h4>
+							<a href="<?= base_url('izin') ?>" class="btn-sm btn btn-primary"> <span class="flaticon-381-view"></span> Lihat semua</a>
+						</div>
+						<div class="card-body">
+							<div id="DZ_W_Todo3" class="widget-media dz-scroll height200">
+								<?php if (count($izin) == 0) { ?>
+									<h3 class="text-center text-primary m-auto">Tidak ada izin bulan ini</h1>
+									<?php } else { ?>
+										<ul class="timeline">
+											<?php foreach ($izin as $i) : ?>
+												<li>
+													<div class="timeline-panel">
+														<div class="media mr-2">
+															<img alt="image" width="50" src="<?= base_url() ?>assets/images/user/<?= $i['gambar']; ?>?>">
+														</div>
+														<div class="media-body">
+															<h5 class="mb-1"><?= $i['nama_siswa'] ?> <small class="text-muted"><?= $i['tanggal_izin'] ?></small></h5>
+															<p class="mb-1"><?= substr($i['keterangan'], 1, 70) ?>....</p>
+															<!-- <a href="#" class="btn btn-primary btn-xxs shadow">Lihat</a> -->
+															<p class="badge badge-secondary"><?= $i['status'] ?></p>
+														</div>
+													</div>
+												</li>
+											<?php endforeach; ?>
+										</ul>
+									<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
 
 					</div>
 				</div>
