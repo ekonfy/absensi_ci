@@ -58,7 +58,7 @@
                         <div class="tanggal text-center mb-2"></div>
                         <div class="textberhasil text-center"></div>
                         <div class="textbelum text-center mt-3" style="display: none;"> <!-- Tampilkan pesan belum di scan -->
-                            <h5 class="text-danger">Belum melakukan scan.</h5>
+                            <h5 class="text-danger">Belum melakukan scan atau ulangi scan.</h5>
                         </div>
                     </div>
                 </div>
