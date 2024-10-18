@@ -79,72 +79,90 @@ class Siswa extends CI_Controller
     }
     // import
 	public function import()
-	{
-		$upload_status =  $this->uploadDoc();
-		
-		if (!$upload_status) {
-			$this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => 'Upload file gagal']);
-			redirect(base_url() . 'siswa');
-			return;
-		}
-		
-		$inputFileName = 'assets/' . $upload_status;
-		$inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
-		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
-		$spreadsheet = $reader->load($inputFileName);
-		$sheet = $spreadsheet->getSheet(0);
-		$count_Rows = 2;
-	
-		foreach ($sheet->getRowIterator($count_Rows) as $row) {
-			$name = $spreadsheet->getActiveSheet()->getCell('A' . $row->getRowIndex());
-			$nis = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
-			$kelamin = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
-			$tanggal = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getValue();
-			$tanggalObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($tanggal);
-			$tanggalFormatted = $tanggalObj->format('Y/m/d');
-			$kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
-			$phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
-			$alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
-	
-			$data = array(
-				'nama_siswa' => $name,
-				'nis' => $nis,
-				'tgl_lahir' => $tanggalFormatted,
-				'jenis_kelamin' => $kelamin,
-				'alamat' => $alamat,
-				'no_telepon' => $phone,
-				'kode_jurusan' => 3,
-				'kode_kelas' => $kelas,
-				'gambar' => 'default.jpg'
-			);
-			$this->M_siswa->import($data);
-			$count_Rows++;
-		}
-	
-		$this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil di tambah']);
-		redirect(base_url() . 'siswa');
-	}
-	
-
-    function uploadDoc()
-    {
-        $uploadPath = 'assets/';
-        if (!is_dir($uploadPath)) {
-            mkdir($uploadPath, 0777, TRUE); // FOR CREATING DIRECTORY IF ITS NOT EXIST
-        }
-
-        $config['upload_path'] = $uploadPath;
-        $config['allowed_types'] = 'csv|xlsx|xls';
-        $config['max_size'] = 1000000;
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        if ($this->upload->do_upload('fileExcel')) {
-            $fileData = $this->upload->data();
-            return $fileData['file_name'];
-        } else {
-            return false;
-        }
+{
+    $upload_status =  $this->uploadDoc();
+    
+    if (!$upload_status) {
+        $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => 'Upload file gagal']);
+        redirect(base_url() . 'siswa');
+        return;
     }
+    
+    $inputFileName = 'assets/' . $upload_status;
+    $inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
+    $spreadsheet = $reader->load($inputFileName);
+    $sheet = $spreadsheet->getSheet(0);
+    $count_Rows = 2;
+
+    foreach ($sheet->getRowIterator($count_Rows) as $row) {
+        $name = $spreadsheet->getActiveSheet()->getCell('A' . $row->getRowIndex())->getValue();
+        $nis = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex())->getValue();
+        $kelamin = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex())->getValue();
+        $tanggal = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getValue();
+        
+        // Debug nilai tanggal
+        // var_dump($tanggal); // Gunakan ini jika masih butuh memeriksa nilai tanggal
+
+        // Pastikan hanya angka (Excel timestamp) yang dikonversi ke DateTime
+        if (is_numeric($tanggal)) {
+            $tanggalObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($tanggal);
+            $tanggalFormatted = $tanggalObj->format('Y/m/d');
+        } else {
+            // Jika tidak valid, atur default nilai tanggal (misalnya null atau string kosong)
+            $tanggalFormatted = null;
+        }
+
+        $kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex())->getValue();
+        $phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex())->getValue();
+        $alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex())->getValue();
+
+        $data = array(
+            'nama_siswa' => $name,
+            'nis' => $nis,
+            'tgl_lahir' => $tanggalFormatted,
+            'jenis_kelamin' => $kelamin,
+            'alamat' => $alamat,
+            'no_telepon' => $phone,
+            'kode_jurusan' => 3,
+            'kode_kelas' => $kelas,
+            'gambar' => 'default.jpg'
+        );
+        
+        // Insert data ke database
+        $this->M_siswa->import($data);
+        $count_Rows++;
+    }
+
+    $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil ditambahkan']);
+    redirect(base_url() . 'siswa');
+}
+
+function uploadDoc()
+{
+    $uploadPath = 'assets/';
+    if (!is_dir($uploadPath)) {
+        mkdir($uploadPath, 0777, TRUE); // Membuat folder jika belum ada
+    }
+
+    $config['upload_path'] = $uploadPath;
+    $config['allowed_types'] = 'csv|xlsx|xls';
+    $config['max_size'] = 1000000;
+    
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('fileExcel')) {
+        $fileData = $this->upload->data();
+        return $fileData['file_name'];
+    } else {
+        // Log pesan error upload
+        $error = $this->upload->display_errors();
+        log_message('error', 'Upload failed: ' . $error);  // Log error ke file log CodeIgniter
+        return false;
+    }
+}
+
     // proses input tambah siswa
     public function tambahsiswa()
 {
