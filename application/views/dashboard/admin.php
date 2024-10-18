@@ -19,24 +19,27 @@ else if ($jam >= 19 && $jam <= 23)
     <div class="row">
     <div class="col-xl-12 col-md-12">
         <div class="card bg-transparent mb-4">
-            <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="card-body d-flex flex-wrap justify-content-between align-items-center">
                 <!-- Bagian Tanggal dan Jam -->
-                <div class="d-flex align-items-center">
-                    <h4 class="flaticon-381-calendar mr-3" id="datenow"></h4>
-                    <h4 class="flaticon-381-alarm-clock" id="clocknow"></h4>
+                <div class="d-flex flex-column text-center text-md-left mb-3 mb-md-0">
+                    <div class="d-flex flex-column align-items-start">
+                        <h4 class="flaticon-381-calendar mb-30 mr-20" id="datenow"></h4> <!-- Lebih banyak jarak kanan -->
+                        <h4 class="flaticon-381-alarm-clock mb-4" id="clocknow"></h4> <!-- Lebih banyak jarak bawah -->
+                    </div>
                 </div>
 
                 <!-- Bagian Pilihan Scan Absen -->
-                <div class="d-flex align-items-center">
-                    <h4 class="flaticon-381-user mr-3">Pilih Scan Absen:</h4>
-                    <button type="button" class="btn btn-success mr-2" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Kamera HP/Laptop</button>
-                    <button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner</button>
+                <div class="d-flex flex-column align-items-center text-center">
+                    <h4 class="flaticon-381-user mb-4 mr-2">Pilih Scan Absen:</h4> <!-- Lebih banyak jarak kanan dan bawah -->
+                    <div class="d-flex justify-content-center">
+					    <button type="button" class="btn btn-success mb-2 mr-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner QR</button>
+                        <button type="button" class="btn btn-success mb-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Laptop/HP</button>
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </div>
 
 
