@@ -78,43 +78,53 @@ class Siswa extends CI_Controller
         $this->load->view('templates/footer');
     }
     // import
-    public function import()
-    {
-        $upload_status =  $this->uploadDoc();
-        $inputFileName = 'assets/excel' . $upload_status;
-        $inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
-        $spreadsheet = $reader->load($inputFileName);
-        $sheet = $spreadsheet->getSheet(0);
-        $count_Rows = 2;
-        // Loop melalui baris lembar kedua
-        foreach ($sheet->getRowIterator($count_Rows) as $row) {
-            $name = $spreadsheet->getActiveSheet()->getCell('A' . $row->getRowIndex());
-            $nis = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
-            $kelamin = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
-            $tanggal = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getValue();
-            $tanggalObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($tanggal);
-            $tanggalFormatted = $tanggalObj->format('Y/m/d');
-            $kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
-            $phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
-            $alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
-            $data = array(
-                'nama_siswa' => $name,
-                'nis' => $nis,
-                'tgl_lahir' => $tanggalFormatted,
-                'jenis_kelamin' => $kelamin,
-                'alamat' => $alamat,
-                'no_telepon' => $phone,
-                'kode_jurusan' => 3,
-                'kode_kelas' => $kelas,
-                'gambar' => 'default.jpg'
-            );
-            $this->M_siswa->import($data);
-            $count_Rows++;
-        }
-        $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil di tambah']);
-        redirect(base_url() . 'siswa');
-    }
+	public function import()
+	{
+		$upload_status =  $this->uploadDoc();
+		
+		if (!$upload_status) {
+			$this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => 'Upload file gagal']);
+			redirect(base_url() . 'siswa');
+			return;
+		}
+		
+		$inputFileName = 'assets/' . $upload_status;
+		$inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
+		$spreadsheet = $reader->load($inputFileName);
+		$sheet = $spreadsheet->getSheet(0);
+		$count_Rows = 2;
+	
+		foreach ($sheet->getRowIterator($count_Rows) as $row) {
+			$name = $spreadsheet->getActiveSheet()->getCell('A' . $row->getRowIndex());
+			$nis = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
+			$kelamin = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
+			$tanggal = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getValue();
+			$tanggalObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($tanggal);
+			$tanggalFormatted = $tanggalObj->format('Y/m/d');
+			$kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
+			$phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
+			$alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
+	
+			$data = array(
+				'nama_siswa' => $name,
+				'nis' => $nis,
+				'tgl_lahir' => $tanggalFormatted,
+				'jenis_kelamin' => $kelamin,
+				'alamat' => $alamat,
+				'no_telepon' => $phone,
+				'kode_jurusan' => 3,
+				'kode_kelas' => $kelas,
+				'gambar' => 'default.jpg'
+			);
+			$this->M_siswa->import($data);
+			$count_Rows++;
+		}
+	
+		$this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil di tambah']);
+		redirect(base_url() . 'siswa');
+	}
+	
 
     function uploadDoc()
     {
