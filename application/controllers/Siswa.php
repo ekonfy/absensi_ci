@@ -81,7 +81,7 @@ class Siswa extends CI_Controller
     public function import()
     {
         $upload_status =  $this->uploadDoc();
-        $inputFileName = 'assets/' . $upload_status;
+        $inputFileName = 'assets/excel' . $upload_status;
         $inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
         $spreadsheet = $reader->load($inputFileName);
