@@ -100,9 +100,6 @@ class Siswa extends CI_Controller
         $nis = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex())->getValue();
         $kelamin = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex())->getValue();
         $tanggal = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getValue();
-        
-        // Debug nilai tanggal
-        // var_dump($tanggal); // Gunakan ini jika masih butuh memeriksa nilai tanggal
 
         // Pastikan hanya angka (Excel timestamp) yang dikonversi ke DateTime
         if (is_numeric($tanggal)) {
@@ -116,6 +113,12 @@ class Siswa extends CI_Controller
         $kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex())->getValue();
         $phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex())->getValue();
         $alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex())->getValue();
+
+        // Validasi data apakah baris ini kosong
+        if (empty($name) && empty($nis) && empty($kelamin) && empty($tanggalFormatted) && empty($kelas) && empty($phone) && empty($alamat)) {
+            // Skip baris kosong
+            continue;
+        }
 
         $data = array(
             'nama_siswa' => $name,
@@ -137,6 +140,8 @@ class Siswa extends CI_Controller
     $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Siswa Berhasil ditambahkan']);
     redirect(base_url() . 'siswa');
 }
+
+
 
 function uploadDoc()
 {
