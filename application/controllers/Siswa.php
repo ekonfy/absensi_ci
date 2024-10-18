@@ -113,7 +113,7 @@ class Siswa extends CI_Controller
         $kelas = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex())->getValue();
         $phone = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex())->getValue();
         $alamat = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex())->getValue();
-
+		$jurusan = $spreadsheet->getActiveSheet()->getCell('H' . $row->getRowIndex())->getValue();
         // Validasi data apakah baris ini kosong
         if (empty($name) && empty($nis) && empty($kelamin) && empty($tanggalFormatted) && empty($kelas) && empty($phone) && empty($alamat)) {
             // Skip baris kosong
@@ -127,7 +127,7 @@ class Siswa extends CI_Controller
             'jenis_kelamin' => $kelamin,
             'alamat' => $alamat,
             'no_telepon' => $phone,
-            'kode_jurusan' => 3,
+            'kode_jurusan' => $jurusan,
             'kode_kelas' => $kelas,
             'gambar' => 'default.jpg'
         );
