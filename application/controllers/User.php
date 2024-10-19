@@ -56,40 +56,73 @@ class User extends CI_Controller
         redirect(base_url() . 'user');
     }
 
-    public function edituser()
-    {
-        $config['upload_path']          = './assets/images/user';
-        $config['allowed_types']        = 'jpg|png|jpeg';
-        $config['file_name']        = $this->input->post('id_user');
-        $config['max_size']             = 2000;
-        $this->load->library('upload', $config);
-        $this->form_validation->set_rules('nama', 'Name', 'required|min_length[6]|trim|alpha', [
-            'min_length' => 'Nama minimal 6 karakter',
-        ]);
-        $old_email = $this->M_user->getUserByid($this->input->post('id_user'))[0]['image'];
-        if ($this->input->post('email') == $old_email) {
-            $rules_email = '';
-        } else {
-            $rules_email = '|is_unique[tabel_user.email]';
-        }
-        $this->form_validation->set_rules('email', 'email', 'required|valid_email' . $rules_email, [
-            'valid_email' => 'Harap masukan email yang valid'
-        ]);
-        if (!isset($_FILES['image']['name'])) {
-            $foto = $this->input->post('fotodefault');
-        } else {
-            if (!$this->upload->do_upload('foto')) {
-                $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => $this->upload->display_errors()]);
-                redirect(base_url() . 'user');
-                exit;
-            }
-            $foto = $this->input->post('id_user') . '.' . $this->upload->data('image_type');
-        }
-        $this->M_user->edituser($foto);
-        $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Berhasil edit user']);
-        redirect(base_url() . 'user');
+	public function edituser()
+{
+    $config['upload_path']   = './assets/images/user';
+    $config['allowed_types'] = 'jpg|png|jpeg';
+    $config['file_name']     = $this->input->post('id_user');
+    $config['max_size']      = 2000; // 2MB
+    $this->load->library('upload', $config);
+
+    // Log input nama untuk debugging
+    log_message('debug', 'Input Nama: ' . $this->input->post('nama'));
+
+    // Validasi nama yang mengizinkan huruf, angka, spasi, tanda hubung, dan tanda petik
+    $this->form_validation->set_rules('nama', 'Name', 'required|min_length[6]|trim|regex_match[/^[a-zA-Z0-9\s\'\-]+$/u]', [
+        'min_length'   => 'Nama minimal 6 karakter',
+        'regex_match'  => 'Nama hanya boleh berisi huruf, angka, spasi, tanda hubung, dan tanda petik'
+    ]);
+
+    $old_email = $this->M_user->getUserByid($this->input->post('id_user'))[0]['email'];
+
+    // Cek apakah email baru sama dengan email lama
+    if ($this->input->post('email') == $old_email) {
+        $rules_email = '';
+    } else {
+        $rules_email = '|is_unique[tabel_user.email]';
     }
 
+    // Validasi email
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email' . $rules_email, [
+        'valid_email' => 'Harap masukan email yang valid'
+    ]);
+
+    // Cek apakah validasi form berhasil
+    if ($this->form_validation->run() == false) {
+        // Jika validasi gagal, tampilkan pesan error
+        $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => validation_errors()]);
+        redirect(base_url() . 'user');
+        return;
+    }
+
+    // Cek apakah ada file foto yang diunggah
+    if (empty($_FILES['foto']['name'])) {
+        // Tidak ada file diunggah, gunakan foto default
+        $foto = $this->input->post('fotodefault');
+    } else {
+        // Ada file diunggah, lakukan proses upload
+        if (!$this->upload->do_upload('foto')) {
+            // Jika gagal upload, tampilkan error
+            $this->session->set_flashdata('flash', ['alert' => 'danger', 'message' => $this->upload->display_errors()]);
+            redirect(base_url() . 'user');
+            return;
+        } else {
+            // Jika berhasil upload, ambil nama file dengan ekstensi
+            $foto = $this->input->post('id_user') . $this->upload->data('file_ext');
+        }
+    }
+
+    // Update data user dengan foto baru
+    $this->M_user->edituser($foto);
+
+    // Tampilkan pesan berhasil
+    $this->session->set_flashdata('flash', ['alert' => 'success', 'message' => 'Berhasil edit user']);
+    redirect(base_url() . 'user');
+}
+
+
+
+	
 
     public function profile()
     {
