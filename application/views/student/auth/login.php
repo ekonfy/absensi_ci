@@ -86,8 +86,8 @@
         e.preventDefault();
         let nis = $('.nomorinduk').val();
         let password = $('.password').val();
-        if (nis.length < 10) {
-            $('.infonis').html('<small class="error-message">Nis harus 10 digit</small>');
+        if (nis.length < 2) {
+            $('.infonis').html('<small class="error-message">Nis harus sesuai</small>');
         } else {
             $('.kotaklogin').hide();
             $('.tulisankecil').hide();
