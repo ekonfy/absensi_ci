@@ -1,7 +1,7 @@
 <!--**********************************
       Bagian Content body start
-    ***********************************-->
-	<?php
+***********************************-->
+<?php
 $jam = date("G");
 if ($jam >= 0 && $jam <= 11)
     $sapa = "Selamat Pagi";
@@ -16,137 +16,150 @@ else if ($jam >= 19 && $jam <= 23)
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-    <div class="row">
-    <div class="col-xl-12 col-md-12">
-        <div class="card bg-transparent mb-4">
-            <div class="card-body d-flex flex-wrap justify-content-between align-items-center">
-                <!-- Bagian Tanggal dan Jam -->
-                <div class="d-flex flex-column text-center text-md-left mb-3 mb-md-0">
-                    <div class="d-flex flex-column align-items-start">
-                        <h4 class="flaticon-381-calendar mb-30 mr-20" id="datenow"></h4> <!-- Lebih banyak jarak kanan -->
-                        <h4 class="flaticon-381-alarm-clock mb-4" id="clocknow"></h4> <!-- Lebih banyak jarak bawah -->
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="row">
+                    <!-- Card untuk Tanggal dan Jam -->
+                    <div class="col-md-6">
+                        <div class="card bg-transparent mb-4">
+                            <div class="card-body d-flex flex-column text-center text-md-left mb-3 mb-md-0">
+                                <div class="d-flex flex-column align-items-start">
+                                    <h4 class="flaticon-381-calendar mb-30 mr-20" id="datenow"></h4>
+                                    <h4 class="flaticon-381-alarm-clock mb-4" id="clocknow"></h4>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Bagian Pilihan Scan Absen -->
-                <div class="d-flex flex-column align-items-center text-center">
-                    <h4 class="flaticon-381-user mb-4 mr-2">Pilih Scan Absen:</h4> <!-- Lebih banyak jarak kanan dan bawah -->
-                    <div class="d-flex justify-content-center">
-					    <button type="button" class="btn btn-success mb-2 mr-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner QR</button>
-                        <button type="button" class="btn btn-success mb-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Laptop/HP</button>
-                        
+                    <!-- Card untuk Pilihan Scan Absen -->
+                    <div class="col-md-6">
+                        <div class="card bg-transparent mb-4">
+                            <div class="card-body d-flex flex-column align-items-center text-center">
+                                <h4 class="flaticon-381-user mb-4 mr-2">Pilih Scan Absen:</h4>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-success mb-2 mr-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner QR</button>
+                                    <button type="button" class="btn btn-success mb-2 btn-sm" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Laptop/HP</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-
-
-
-
-
-            <div class="col-xl-12 col-xxl-12">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-6 col-sm-6">
-                        <div class="widget-stat card bg-primary">
-                            <div class="card-body p-4">
-                                <div class="media">
-                                    <span class="mr-3">
-                                        <i class="la la-users"></i>
-                                    </span>
-                                    <div class="media-body text-white">
-                                        <p class="mb-1">Jumlah Siswa</p>
-                                        <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_siswa")->num_rows() ?></h3>
-                                        <div class="progress mb-2 bg-secondary">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
-                                        </div>
-                                        <small>Seluruh siswa aktif dan tidak aktif</small>
+        <!-- Card Statistik -->
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                    <div class="widget-stat card bg-primary">
+                        <div class="card-body p-4">
+                            <div class="media">
+                                <span class="mr-3">
+                                    <i class="la la-users"></i>
+                                </span>
+                                <div class="media-body text-white">
+                                    <p class="mb-1">Jumlah Siswa</p>
+                                    <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_siswa")->num_rows() ?></h3>
+                                    <div class="progress mb-2 bg-secondary">
+                                        <div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
                                     </div>
+                                    <small>Seluruh siswa aktif dan tidak aktif</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-sm-6">
-                        <div class="widget-stat card bg-warning">
-                            <div class="card-body p-4">
-                                <div class="media">
-                                    <span class="mr-3">
-                                        <i class="la la-user"></i>
-                                    </span>
-                                    <div class="media-body text-white">
-                                        <p class="mb-1">Jumlah Pengguna</p>
-                                        <?php
-                                        $akunpetugas = $this->db->query("SELECT * FROM tabel_user")->num_rows();
-                                        $akunsiswa = $this->db->query("SELECT * FROM login_siswa")->num_rows();
-                                        ?>
-                                        <h3 class="text-white"><?= $akunpetugas + $akunsiswa ?></h3>
-                                        <div class="progress mb-2 bg-primary">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 50%"></div>
-                                        </div>
-                                        <small><?= $akunpetugas . ' Akun staff' . ' dan ' . $akunsiswa . ' Akun siswa' ?></small>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                    <div class="widget-stat card bg-warning">
+                        <div class="card-body p-4">
+                            <div class="media">
+                                <span class="mr-3">
+                                    <i class="la la-user"></i>
+                                </span>
+                                <div class="media-body text-white">
+                                    <p class="mb-1">Jumlah Pengguna</p>
+                                    <?php
+                                    $akunpetugas = $this->db->query("SELECT * FROM tabel_user")->num_rows();
+                                    $akunsiswa = $this->db->query("SELECT * FROM login_siswa")->num_rows();
+                                    ?>
+                                    <h3 class="text-white"><?= $akunpetugas + $akunsiswa ?></h3>
+                                    <div class="progress mb-2 bg-primary">
+                                        <div class="progress-bar progress-animated bg-light" style="width: 50%"></div>
                                     </div>
+                                    <small><?= $akunpetugas . ' Akun staff' . ' dan ' . $akunsiswa . ' Akun siswa' ?></small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-sm-6">
-                        <div class="widget-stat card bg-secondary">
-                            <div class="card-body p-4">
-                                <div class="media">
-                                    <span class="mr-3">
-                                        <i class="la la-graduation-cap"></i>
-                                    </span>
-                                    <div class="media-body text-white">
-                                        <p class="mb-1">Jumlah Kelas</p>
-                                        <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_kelas")->num_rows() ?></h3>
-                                        <div class="progress mb-2 bg-primary">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 76%"></div>
-                                        </div>
-                                        <small>dari <?= $this->db->query("SELECT * FROM tabel_jurusan")->num_rows() . ' Jurusan' ?></small>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                    <div class="widget-stat card bg-secondary">
+                        <div class="card-body p-4">
+                            <div class="media">
+                                <span class="mr-3">
+                                    <i class="la la-graduation-cap"></i>
+                                </span>
+                                <div class="media-body text-white">
+                                    <p class="mb-1">Jumlah Kelas</p>
+                                    <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_kelas")->num_rows() ?></h3>
+                                    <div class="progress mb-2 bg-primary">
+                                        <div class="progress-bar progress-animated bg-light" style="width: 76%"></div>
                                     </div>
+                                    <small>dari <?= $this->db->query("SELECT * FROM tabel_jurusan")->num_rows() . ' Jurusan' ?></small>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="col-xl-12">
-                        <div class="card border-0 pb-0">
-                            <div class="card-header border-0 pb-0">
+        <!-- Card Permintaan Izin -->
+        <div class="col-xl-12">
+            <div class="card border-0 pb-0">
+                <div class="card-header border-0 pb-0">
+                    <?php
+                    $thbulan = date('Y') . '-' . date('m');
+                    $querycekizin = "SELECT * FROM tabel_izin JOIN tabel_siswa ON tabel_siswa.nis = tabel_izin.nis_siswa WHERE tanggal_izin LIKE '%$thbulan%' ORDER BY tanggal_izin DESC LIMIT 10";
+                    $izin = $this->db->query($querycekizin)->result_array();
+                    ?>
+                    <h4 class="card-title">Permintaan izin bulan ini</h4>
+                    <a href="<?= base_url('izin') ?>" class="btn-sm btn btn-primary"> <span class="flaticon-381-view"></span> Lihat semua</a>
+                </div>
+                <div class="card-body">
+                    <div id="DZ_W_Todo3" class="widget-media dz-scroll height200">
+                        <?php if (count($izin) == 0) { ?>
+                            <h3 class="text-center text-primary m-auto">Tidak ada izin bulan ini</h3>
+                        <?php } else { ?>
+                            <ul class="timeline">
                                 <?php
-                                $thbulan = date('Y') . '-' . date('m');
-                                $querycekizin = "SELECT * FROM tabel_izin JOIN tabel_siswa on tabel_siswa.nis = tabel_izin.nis_siswa WHERE tanggal_izin LIKE '%$thbulan%' ORDER BY tanggal_izin DESC LIMIT 10";
-                                $izin = $this->db->query($querycekizin)->result_array();
+                                // Array untuk menyimpan ID izin yang sudah ditampilkan
+                                $unique_ids = [];
+
+                                foreach ($izin as $i) :
+                                    // Cek apakah ID izin sudah ditampilkan
+                                    if (in_array($i['id_izin'], $unique_ids)) {
+                                        continue; // Lewati jika sudah ditampilkan
+                                    }
+
+                                    // Tambahkan ID izin ke array
+                                    $unique_ids[] = $i['id_izin'];
                                 ?>
-                                <h4 class="card-title">Permintaan izin bulan ini</h4>
-                                <a href="<?= base_url('izin') ?>" class="btn-sm btn btn-primary"> <span class="flaticon-381-view"></span> Lihat semua</a>
-                            </div>
-                            <div class="card-body">
-                                <div id="DZ_W_Todo3" class="widget-media dz-scroll height200">
-                                    <?php if (count($izin) == 0) { ?>
-                                        <h3 class="text-center text-primary m-auto">Tidak ada izin bulan ini</h1>
-                                    <?php } else { ?>
-                                        <ul class="timeline">
-                                            <?php foreach ($izin as $i) : ?>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media mr-2">
-                                                            <img alt="image" width="50" src="<?= base_url() ?>assets/images/user/<?= $i['gambar']; ?>">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h5 class="mb-1"><?= $i['nama_siswa'] ?> <small class="text-muted"><?= $i['tanggal_izin'] ?></small></h5>
-                                                            <p class="mb-1"><?= substr($i['keterangan'], 1, 70) ?>....</p>
-                                                            <p class="badge badge-secondary"><?= $i['status'] ?></p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
+                                    <li>
+                                        <div class="timeline-panel">
+                                            <div class="media mr-2">
+                                                <img alt="image" width="50" src="<?= base_url() ?>assets/images/user/<?= $i['gambar']; ?>">
+                                            </div>
+                                            <div class="media-body">
+                                                <h5 class="mb-1"><?= $i['nama_siswa'] ?> <small class="text-muted"><?= $i['tanggal_izin'] ?></small></h5>
+                                                <p class="mb-1"><?= substr($i['keterangan'], 1, 70) ?>....</p>
+                                                <p class="badge badge-secondary"><?= $i['status'] ?></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -165,12 +178,11 @@ else if ($jam >= 19 && $jam <= 23)
                 </button>
             </div>
             <div class="modal-body">
-			Pilih Scan Absen dengan (Kamera HP/Laptop) (QR Reader)
+                Pilih Scan Absen dengan (Kamera HP/Laptop) (QR Reader)
             </div>
             <div class="modal-footer">
-                <!-- Tombol untuk konfirmasi -->
                 <button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera', '_blank')">Kamera HP/Laptop</button>
-				<button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner</button>
+                <button type="button" class="btn btn-success" onclick="window.open('<?= base_url(); ?>camera/scanqr', '_blank')">Scanner</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             </div>
         </div>
@@ -215,8 +227,6 @@ else if ($jam >= 19 && $jam <= 23)
     }
     currentTime(); /* calling currentTime() function to initiate the process */
 </script>
-
-
 
 <!-- Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
