@@ -15,6 +15,18 @@ class Camera extends CI_Controller
         // $this->load->view('templates/footer');
     }
 
+	public function rfid()
+    {
+        $data = [
+            'title' => WEBNAME . ' Absen',
+            'webname' => WEBNAME,
+
+        ];
+        //  $this->load->view('templates/header', $data);
+        $this->load->view('absen/rfid');
+        // $this->load->view('templates/footer');
+    }
+
     public function camera2()
     {
         $data = [
