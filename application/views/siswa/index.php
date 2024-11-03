@@ -54,34 +54,34 @@
                                 <tbody>
                                     <?php $i = 1; ?>
                                     <?php foreach ($siswa as $s) : ?>
-                                        <tr>
-                                            <td><?= $i++ ?></td>
-                                            <td><?= $s['nis']; ?></td>
-                                            <td><?= $s['nama_siswa']; ?></td>
-                                            <td><?= $s['jenis_kelamin']; ?></td>
-                                            <td><?= $s['alamat']; ?></td>
-                                            <td><?= $s['kelas']; ?></td>
-                                            <td><?= $s['tgl_lahir']; ?></td>
-                                            <td><?= $s['no_telepon']; ?></td>
+										<?php if (is_null($s['type'])) : ?>
+											<tr>
+												<td><?= $i++ ?></td>
+												<td><?= $s['nis']; ?></td>
+												<td><?= $s['nama_siswa']; ?></td>
+												<td><?= $s['jenis_kelamin']; ?></td>
+												<td><?= $s['alamat']; ?></td>
+												<td><?= $s['kelas']; ?></td>
+												<td><?= $s['tgl_lahir']; ?></td>
+												<td><?= $s['no_telepon']; ?></td>
+												<td>
+													<div class="d-flex">
+														<form action="<?= base_url(); ?>siswa/edit" method="POST">
+															<input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash() ?>">
+															<input type="hidden" name="nis" value="<?= $s['nis'] ?>">
+															<button type="submit" class="btn btn-primary shadow btn-xs sharp mr-1" name="editsiswa"><i class="fa fa-pencil"></i></button>
+														</form>
+														<form action="<?= base_url() ?>siswa/delete" method="POST">
+															<input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash() ?>">
+															<input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
+															<button class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>
+														</form>
+													</div>
+												</td>
+											</tr>
+										<?php endif; ?>
+									<?php endforeach; ?>
 
-                                            <td>
-                                                <div class="d-flex">
-                                                    <form action="<?= base_url(); ?>siswa/edit" method="POST">
-                                                        <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash() ?>">
-                                                        <input type="hidden" name="nis" value="<?= $s['nis'] ?>">
-                                                        <button type="submit" class="btn btn-primary shadow btn-xs sharp mr-1" name="editsiswa"><i class="fa fa-pencil"></i></button>
-                                                    </form>
-                                                    <form action="<?= base_url() ?>siswa/delete" method="POST">
-                                                        <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash() ?>">
-                                                        <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
-                                                        <button class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>
-                                                    </form>
-
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    <?php endforeach; ?>
                                 </tbody>
 
                             </table>

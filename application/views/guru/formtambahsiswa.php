@@ -35,19 +35,20 @@
                                     <input type="date" placeholder="dd--mm-yyyy" min="1900-01-01" max="2999-12-31" name="tgl_lahir" class="form-control" required>
                                 </div>
                             </div>
-								<div class="form-group col-md-12">
-									<label class="control-label">Status :</label>
-										<div class="controls">
-											<select name="kelas" id="kelas" class="form-control" required>
+							<div class="form-group col-md-12">
+								<label class="control-label">Status :</label>
+									<div class="controls">
+										<select name="kelas" id="kelas" class="form-control" required>
 											<option value="0" selected disabled>Pilih Status..</option>
 											<?php foreach ($kelas as $k) : ?>
-											<?php if ($k['id_kelas'] == 5 || $k['id_kelas'] == 6) : ?>
-											<option value="<?= $k['id_kelas']; ?>"><?= $k['kelas']; ?></option>
-											<?php endif; ?>
+													<?php if ($k['type'] == 1) : ?>
+														<option value="<?= $k['id_kelas']; ?>"><?= $k['kelas']; ?></option>
+													<?php endif; ?>
 											<?php endforeach; ?>
-											</select>
-										</div>
-								</div>
+										</select>
+									</div>
+							</div>
+
 							
                             <div class="form-group col-md-12">
                                 <label for="normal" class="control-label">Nomor Telepon :</label>
