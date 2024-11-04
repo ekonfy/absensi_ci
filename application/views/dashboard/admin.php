@@ -58,13 +58,16 @@ else if ($jam >= 19 && $jam <= 23)
                                     <i class="la la-users"></i>
                                 </span>
                                 <div class="media-body text-white">
-                                    <p class="mb-1">Jumlah Siswa</p>
-                                    <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_siswa")->num_rows() ?></h3>
-                                    <div class="progress mb-2 bg-secondary">
-                                        <div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
-                                    </div>
-                                    <small>Seluruh siswa aktif dan tidak aktif</small>
-                                </div>
+								<p class="mb-1">Jumlah Siswa</p>
+								<h3 class="text-white">
+									<?= $this->db->query("SELECT * FROM tabel_siswa WHERE type IS NULL")->num_rows() ?>
+								</h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
+								</div>
+								<small>Jumlah siswa </small>
+							</div>
+
                             </div>
                         </div>
                     </div>
@@ -77,17 +80,19 @@ else if ($jam >= 19 && $jam <= 23)
                                     <i class="la la-user"></i>
                                 </span>
                                 <div class="media-body text-white">
-                                    <p class="mb-1">Jumlah Pengguna</p>
-                                    <?php
-                                    $akunpetugas = $this->db->query("SELECT * FROM tabel_user")->num_rows();
-                                    $akunsiswa = $this->db->query("SELECT * FROM login_siswa")->num_rows();
-                                    ?>
-                                    <h3 class="text-white"><?= $akunpetugas + $akunsiswa ?></h3>
-                                    <div class="progress mb-2 bg-primary">
-                                        <div class="progress-bar progress-animated bg-light" style="width: 50%"></div>
-                                    </div>
-                                    <small><?= $akunpetugas . ' Akun staff' . ' dan ' . $akunsiswa . ' Akun siswa' ?></small>
-                                </div>
+								<p class="mb-1">Jumlah Pengajar</p>
+								<h3 class="text-white">
+									<?= $this->db->query("SELECT * FROM tabel_siswa WHERE type = 1")->num_rows() ?>
+								</h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
+								</div>
+								<small>Jumlah Guru & Karyawan 
+								GTY  <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 5")->num_rows() ?>
+                                GTT   <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 6")->num_rows() ?>
+                                KTY  <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 7")->num_rows() ?>
+								</small>
+							</div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +106,7 @@ else if ($jam >= 19 && $jam <= 23)
                                 </span>
                                 <div class="media-body text-white">
                                     <p class="mb-1">Jumlah Kelas</p>
-                                    <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_kelas")->num_rows() ?></h3>
+                                    <h3 class="text-white"><?= $this->db->query("SELECT * FROM tabel_kelas WHERE type IS NULL")->num_rows() ?></h3>
                                     <div class="progress mb-2 bg-primary">
                                         <div class="progress-bar progress-animated bg-light" style="width: 76%"></div>
                                     </div>
