@@ -80,19 +80,20 @@ else if ($jam >= 19 && $jam <= 23)
                                     <i class="la la-user"></i>
                                 </span>
                                 <div class="media-body text-white">
-								<p class="mb-1">Jumlah Pengajar</p>
-								<h3 class="text-white">
+                                <p class="mb-1">Jumlah Pengajar</p>
+                                <h3 class="text-white">
                                     <?= $this->db->query("SELECT * FROM tabel_siswa WHERE type IS NOT NULL")->num_rows() ?>
-								</h3>
-								<div class="progress mb-2 bg-secondary">
-									<div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
-								</div>
-								<small>
-								GTY  <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 5")->num_rows() ?>
-                                GTT   <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 6")->num_rows() ?>
-                                KTY  <?= $this->db->query("SELECT * FROM tabel_siswa where kode_kelas = 7")->num_rows() ?>
-								</small>
-							</div>
+                                </h3>
+                                <div class="progress mb-2 bg-secondary">
+                                    <div class="progress-bar progress-animated bg-light" style="width: 100%"></div>
+                                </div>
+                                <small>
+                                    GTY: <?= $this->db->query("SELECT * FROM tabel_siswa WHERE kode_kelas = 5")->num_rows() ?> |
+                                    GTT: <?= $this->db->query("SELECT * FROM tabel_siswa WHERE kode_kelas = 6")->num_rows() ?> |
+                                    KTY: <?= $this->db->query("SELECT * FROM tabel_siswa WHERE kode_kelas = 7")->num_rows() ?>
+                                </small>
+                            </div>
+
                             </div>
                         </div>
                     </div>
